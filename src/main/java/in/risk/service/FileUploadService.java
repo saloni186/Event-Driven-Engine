@@ -13,6 +13,8 @@ public class FileUploadService {
 
 	@Value("${file.upload-dir}")
 	private String uploadDir;
+	
+	private String name;
 
 	public FileUploadResponse uploadFile(MultipartFile file) throws IOException {
 
