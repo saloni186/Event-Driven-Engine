@@ -40,10 +40,6 @@ public class FileUploadService {
                 StandardCopyOption.REPLACE_EXISTING
         );
 
-        //Path doneFile = uploadPath.resolve(originalFileName + ".done");
-
-       // Files.createFile(doneFile);
-        
         return new FileUploadResponse(
                 originalFileName,
                 "UPLOADED",
