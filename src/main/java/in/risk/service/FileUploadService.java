@@ -11,39 +11,27 @@ import java.nio.file.*;
 @Service
 public class FileUploadService {
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+	@Value("${file.upload-dir}")
+	private String uploadDir;
 
-    public FileUploadResponse uploadFile(MultipartFile file) throws IOException {
+	public FileUploadResponse uploadFile(MultipartFile file) throws IOException {
 
-        Path uploadPath = Paths.get(uploadDir);
+		Path uploadPath = Paths.get(uploadDir);
 
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
 
-        String originalFileName = file.getOriginalFilename();
+		String originalFileName = file.getOriginalFilename();
 
-        Path tempFile = uploadPath.resolve(originalFileName + ".uploading");
+		Path tempFile = uploadPath.resolve(originalFileName + ".uploading");
 
-        Files.copy(
-                file.getInputStream(),
-                tempFile,
-                StandardCopyOption.REPLACE_EXISTING
-        );
+		Files.copy(file.getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
 
-        Path finalFile = uploadPath.resolve(originalFileName);
+		Path finalFile = uploadPath.resolve(originalFileName);
 
-        Files.move(
-                tempFile,
-                finalFile,
-                StandardCopyOption.REPLACE_EXISTING
-        );
+		Files.move(tempFile, finalFile, StandardCopyOption.REPLACE_EXISTING);
 
-        return new FileUploadResponse(
-                originalFileName,
-                "UPLOADED",
-                finalFile.toString()
-        );
-    }
+		return new FileUploadResponse(originalFileName, "UPLOADED", finalFile.toString());
+	}
 }
