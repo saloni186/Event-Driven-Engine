@@ -23,4 +23,9 @@ public class FileUploadController {
                 fileUploadService.uploadFile(file)
         );
     }
+    
+    @GetMapping("/download")
+    public String downloadFile() {
+    	return "file downloaded";
+    }    
 }
