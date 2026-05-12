@@ -1,0 +1,26 @@
+package in.risk.controller;
+
+import in.risk.model.FileUploadResponse;
+import in.risk.service.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+@RestController
+@RequestMapping("/api/files")
+@CrossOrigin("*")
+public class FileUploadController {
+
+    @Autowired
+    private FileUploadService fileUploadService;
+
+    @PostMapping("/upload")
+    public ResponseEntity<FileUploadResponse> uploadFile(
+            @RequestParam("file") MultipartFile file) throws Exception {
+
+        return ResponseEntity.ok(
+                fileUploadService.uploadFile(file)
+        );
+    }
+}
